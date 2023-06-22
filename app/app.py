@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify
 from providers.scraper import *
-import json
-import sys
 
 app = Flask(__name__)
 scraper = Scraper()
