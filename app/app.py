@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from providers.scraper import *
 
 app = Flask(__name__)
+CORS(app)
 scraper = Scraper()
 
 @app.route("/hi")
@@ -28,4 +30,4 @@ def get_playlist_as_csv():
     })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5000, host="0.0.0.0")
