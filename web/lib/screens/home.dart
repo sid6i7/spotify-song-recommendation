@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 child: Image.asset("images/spotify_bg.png"),
               ),
-              HomePageForm(),
+              const HomePageForm(),
             ],
           ),
         ),

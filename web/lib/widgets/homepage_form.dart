@@ -6,6 +6,8 @@ import 'package:web/services/csv_service.dart';
 import 'package:web/widgets/dialog.dart';
 
 class HomePageForm extends StatefulWidget {
+  const HomePageForm({super.key});
+
   @override
   _HomePageFormState createState() => _HomePageFormState();
 }

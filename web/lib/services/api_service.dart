@@ -5,7 +5,7 @@ import 'package:web/config.dart';
 
 class ApiService {
   Future<String> get_playlist_data(String playlistUrl) async {
-    final callUrl = BASE_URL + PLAYLIST_ENDPOINT;
+    const callUrl = BASE_URL + PLAYLIST_ENDPOINT;
     final url = Uri.parse(callUrl);
     final data = {'playlist_url': playlistUrl};
     final response = await http.post(
