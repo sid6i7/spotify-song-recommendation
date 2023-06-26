@@ -3,3 +3,6 @@ python-dotenv
 pandas
 Flask
 Flask-Cors
+opendatasets
+matplotlib
+scikit-learn
