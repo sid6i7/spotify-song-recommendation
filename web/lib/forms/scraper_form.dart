@@ -5,14 +5,14 @@ import 'package:web/services/api_service.dart';
 import 'package:web/services/csv_service.dart';
 import 'package:web/widgets/dialog.dart';
 
-class HomePageForm extends StatefulWidget {
-  const HomePageForm({super.key});
+class ScraperPageForm extends StatefulWidget {
+  const ScraperPageForm({super.key});
 
   @override
-  _HomePageFormState createState() => _HomePageFormState();
+  _ScraperPageFormState createState() => _ScraperPageFormState();
 }
 
-class _HomePageFormState extends State<HomePageForm> {
+class _ScraperPageFormState extends State<ScraperPageForm> {
   final TextEditingController playlistUrlController = TextEditingController();
   String errorMessage = '';
   String csvData = '';
@@ -65,7 +65,7 @@ class _HomePageFormState extends State<HomePageForm> {
                 child: TextField(
                   controller: playlistUrlController,
                   decoration: InputDecoration(
-                    hintText: 'Playlist URL',
+                    hintText: 'URL',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -183,7 +183,7 @@ class _HomePageFormState extends State<HomePageForm> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'About the App',
+                        'About the Scraper',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -191,7 +191,7 @@ class _HomePageFormState extends State<HomePageForm> {
                       ),
                       SizedBox(height: 8.0),
                       Text(
-                        APP_DESCRIPTION,
+                        SCRAPER_DESCRIPTION,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
