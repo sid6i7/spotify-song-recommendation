@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from providers.scraper import *
+from providers.recommender import *
 
 app = Flask(__name__)
 CORS(app)
@@ -27,6 +28,18 @@ def get_playlist_as_csv():
     return jsonify({
         'message': message,
         'csv': csvData
+    })
+
+@app.route("/recommend", methods = ['POST'])
+def recommend():
+    recommender = RecommendationSystem()
+    data = request.get_json()
+    link = data.get('link')
+    n_of_songs = data.get('n_of_songs')
+    songUrl, songs = recommender.recommend(link, n_of_songs=int(n_of_songs))
+    return jsonify({
+        'song_url': songUrl,
+        'similar_song_urls': [song.to_dict() for song in songs],
     })
 
 if __name__ == "__main__":

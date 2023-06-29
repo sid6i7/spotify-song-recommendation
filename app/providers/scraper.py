@@ -43,7 +43,7 @@ class Scraper:
         """
         for track in self.spotify.playlist_tracks(playlistUri)["items"]:
             trackUri = track["track"]["uri"]
-            trackFeatures = self.__get_track_features(trackUri)
+            trackFeatures = self.get_track_features(trackUri)
 
             trackName = track["track"]["name"]
 
@@ -84,8 +84,14 @@ class Scraper:
         It converts the trackData list into a pandas DataFrame.
         """
         return pd.DataFrame(self.trackData)
+    
+    def __parse_features(self, trackFeatures):
+        parsedFeatures = {}
+        for feature in SONG_FEATURES:
+            parsedFeatures[feature] = trackFeatures[feature]
+        return parsedFeatures
 
-    def __get_track_features(self, trackUri):
+    def get_track_features(self, trackUri, parse=False):
         """
         Retrieves track features from the Spotify API.
 
@@ -97,7 +103,11 @@ class Scraper:
 
         It retrieves track features from the Spotify API for a given track URI.
         """
-        return self.spotify.audio_features(trackUri)[0]
+        if parse:
+            features = self.__parse_features(self.spotify.audio_features(trackUri)[0])
+        else:
+            features = self.spotify.audio_features(trackUri)[0]
+        return features
 
     def get_playlist(self, playlistLink):
         """
