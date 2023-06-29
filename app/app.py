@@ -6,6 +6,7 @@ from providers.recommender import *
 app = Flask(__name__)
 CORS(app)
 scraper = Scraper()
+recommender = RecommendationSystem()
 
 @app.route("/hi")
 def hello():
@@ -32,7 +33,6 @@ def get_playlist_as_csv():
 
 @app.route("/recommend", methods = ['POST'])
 def recommend():
-    recommender = RecommendationSystem()
     data = request.get_json()
     link = data.get('link')
     n_of_songs = data.get('n_of_songs')
