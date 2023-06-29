@@ -36,7 +36,11 @@ class _HomePageState extends State<HomePage>
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image.asset("images/spotify_bg.png"),
+            Image.asset(
+              "images/spotify_bg.png",
+              height: 200,
+              width: double.infinity,
+            ),
             TabBar(
               indicatorColor: const Color(SPOTIFY_COLOR),
               labelColor: Colors.black,

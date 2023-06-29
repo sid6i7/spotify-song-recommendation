@@ -5,6 +5,21 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from providers.scraper import *
 
+class Song:
+    def __init__(self, url, name, genre, similarity) -> None:
+        self.url = url
+        self.name = name
+        self.genre = genre
+        self.similarity = str(int(similarity * 100)) + "%"
+
+    def to_dict(self):
+        return {
+            "url": self.url,
+            "name": self.name,
+            "genre": self.genre,
+            "similarity": self.similarity
+        }
+
 class RecommendationSystem:
 
     def __load_data(self):
@@ -36,19 +51,22 @@ class RecommendationSystem:
         similarityScores = cosine_similarity(trackFeatures, self.allTracks)
         sorted_indices = np.argsort(-similarityScores)
         similarIndices = sorted_indices[0][:n_of_songs]
-        songsUris = self.songsDf.iloc[similarIndices].uri.values
-        return songsUris
+        songs = self.songsDf.iloc[similarIndices]
+        songUrls = self.parse_uri(songs.uri.values)
+        songNames = songs.song_name.values
+        songGenres = songs.genre.values
+        similarityScores = similarityScores[0][similarIndices]
+        return [Song(url, name, genre, score) for url, name, genre, score in zip(songUrls, songNames, songGenres, similarityScores)]
     
     def recommend(self, link, use_method = 'cosine', n_of_songs=5):
+        songs = []
         trackFeatures = self.scraper.get_track_features(link)
-        trackUri = trackFeatures['uri']
-        songUris = []
+        trackUrl = self.parse_uri([trackFeatures['uri']])
         for feature in self.featuresToDrop:
             del trackFeatures[feature]
         trackFeatures = np.array(list(trackFeatures.values())).reshape(1, -1)
         trackFeatures = self.scaler.transform(trackFeatures)
         if use_method == 'cosine':
-            songUris = self.get_similar_songs_cosine(trackFeatures, n_of_songs)
-        trackUrl = self.parse_uri([trackUri])
-        songUrls = self.parse_uri(songUris)
-        return trackUrl, songUrls
+            songs = self.get_similar_songs_cosine(trackFeatures, n_of_songs)
+        
+        return trackUrl, songs

@@ -7,8 +7,8 @@ import 'package:web/models/song.dart';
 
 class ApiService {
   final String baseUrl = "$HOSTNAME:$PORT/";
-  Future<List<dynamic>> recommend_songs(String uri, int nOfSongs) async {
-    List<dynamic> songs = [];
+  Future<List<Song>> recommend_songs(String uri, int nOfSongs) async {
+    List<Song> songList = [];
     final callUrl = baseUrl + RECOMMEND_ENDPOINT;
     print(callUrl);
     final data = {'link': uri, 'n_of_songs': nOfSongs};
@@ -21,10 +21,11 @@ class ApiService {
     );
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
-      songs = responseBody['similar_song_urls'];
+      List<dynamic> songs = responseBody['similar_song_urls'];
+      songList = songs.map((song) => Song.from_json(song)).toList();
     }
-    print(songs);
-    return songs;
+
+    return songList;
   }
 
   Future<String> get_playlist_data(String playlistUrl) async {

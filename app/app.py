@@ -36,10 +36,10 @@ def recommend():
     data = request.get_json()
     link = data.get('link')
     n_of_songs = data.get('n_of_songs')
-    songUrl, similarSongUrls = recommender.recommend(link, n_of_songs=int(n_of_songs))
+    songUrl, songs = recommender.recommend(link, n_of_songs=int(n_of_songs))
     return jsonify({
         'song_url': songUrl,
-        'similar_song_urls': similarSongUrls,
+        'similar_song_urls': [song.to_dict() for song in songs],
     })
 
 if __name__ == "__main__":

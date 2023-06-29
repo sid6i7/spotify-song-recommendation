@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:web/config.dart';
+import 'package:web/models/song.dart';
 import 'package:web/services/api_service.dart';
 import 'package:web/services/csv_service.dart';
 import 'package:web/widgets/song_list.dart';
@@ -20,7 +21,7 @@ class _RecommenderPageFormState extends State<RecommenderPageForm> {
   ApiService api = ApiService();
   CsvService csv = CsvService();
   double selectedNumber = 1;
-  List<dynamic>? songs;
+  List<Song>? songs;
 
   @override
   void initState() {
@@ -150,7 +151,10 @@ class _RecommenderPageFormState extends State<RecommenderPageForm> {
                   ),
                 ],
               ),
-              gotSongs ? SongList(songs: songs!) : SizedBox.shrink(),
+              const SizedBox(
+                height: 30,
+              ),
+              gotSongs ? SongList(songs: songs!) : const SizedBox.shrink(),
               const SizedBox(
                 height: 30,
               ),
@@ -173,7 +177,7 @@ class _RecommenderPageFormState extends State<RecommenderPageForm> {
                       SizedBox(height: 8.0),
                       Text(
                         RECOMMENDER_DESCRIPTION,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 16,
                         ),
@@ -216,7 +220,7 @@ class _RecommenderPageFormState extends State<RecommenderPageForm> {
         ),
         if (isFetching)
           Container(
-            color: Colors.black54,
+            color: Color(SPOTIFY_COLOR),
             child: const Center(
               child: CircularProgressIndicator(),
             ),

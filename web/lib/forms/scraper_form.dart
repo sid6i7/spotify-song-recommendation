@@ -192,7 +192,7 @@ class _ScraperPageFormState extends State<ScraperPageForm> {
                       SizedBox(height: 8.0),
                       Text(
                         SCRAPER_DESCRIPTION,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 16,
                         ),
