@@ -1,4 +1,4 @@
-const int PORT = 5000;
+const int PORT = 50;
 const HOSTNAME = "http://localhost";
 const SPOTIFY_COLOR = 0xFF1DB954;
 const SCRAPER_DESCRIPTION = """
